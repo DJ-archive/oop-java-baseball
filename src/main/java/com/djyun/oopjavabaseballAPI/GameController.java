@@ -6,9 +6,13 @@ import com.djyun.oopjavabaseballAPI.domain.game.GameCheck;
 import com.djyun.oopjavabaseballAPI.domain.user.User;
 import com.djyun.oopjavabaseballAPI.domain.user.UserCheck;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class GameController {
@@ -37,6 +41,14 @@ public class GameController {
         }
         return null; // 추후 에러 처리
     }
+
+    @GetMapping("/game/{}/history")
+    public ArrayList<Game> retrieveHistory(int roomId){
+        return gameCheck.retrieveAll(roomId);
+    }
+
+
+
 
 
 }
