@@ -40,10 +40,14 @@ public class GameService {
         return realAnswerByID;
     }
 
+
     // remainingCount 줄이고 answerCount 늘리기
-    public Game gameRun(int answer, List<Integer> realAnswer){
-        Game game = new Game();
-        game.setRealAnswer(realAnswer);
+    public Game gameRun(int roomId, int answer, List<Integer> realAnswer){
+        gameRepository.makeNewGame(roomId, realAnswer);
+        List<Integer> answerList = new ArrayList<>();
+        for (Character numChar : Integer.toString(answer).toCharArray()){
+            answerList.add(numChar - '0');
+        }
 
 
         return null;

@@ -41,16 +41,21 @@ public class GameController {
         // 2. 게임 진행
         if (possible){
             List<Integer> realAnswer = gameService.getRealAnswer(roomId);
-            Game gameResult = gameService.gameRun(answer, realAnswer);
+            Game gameResult = gameService.gameRun(roomId, answer, realAnswer);
             basicResponse = BasicResponse.builder().success(true).data(gameResult).build();
             return new ResponseEntity(basicResponse, HttpStatus.CREATED);
         }
-        return null; // 추후 에러 처리
+        basicResponse = BasicResponse.builder().success(false).data(null).build();
+        return new ResponseEntity<>(basicResponse, HttpStatus.BAD_REQUEST); // 추후 에러 처리
     }
 
+
+
     @GetMapping("/game/{roomId}/history")
-    public ArrayList<Game> retrieveHistory(@PathVariable int roomId){
-        return gameRepository.retrieveAll(roomId);
+    public ResponseEntity retrieveHistory(@PathVariable int roomId){
+        ArrayList<Game> gameHistory = gameRepository.retrieveAll(roomId);
+        basicResponse = BasicResponse.builder().success(true).data(gameHistory).build();
+        return new ResponseEntity<>(basicResponse, HttpStatus.OK);
     }
 
 
