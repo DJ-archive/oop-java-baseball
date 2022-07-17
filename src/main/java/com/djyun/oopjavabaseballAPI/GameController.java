@@ -49,7 +49,12 @@ public class GameController {
         return new ResponseEntity<>(basicResponse, HttpStatus.BAD_REQUEST); // 추후 에러 처리
     }
 
-
+    @GetMapping("GET /game/{roomId}")
+    public ResponseEntity retrieveResult(@PathVariable int roomId){
+        Game lastResult = gameRepository.findLastGame(roomId);
+        basicResponse = BasicResponse.builder().success(true).data(lastResult).build();
+        return new ResponseEntity(basicResponse, HttpStatus.OK);
+    }
 
     @GetMapping("/game/{roomId}/history")
     public ResponseEntity retrieveHistory(@PathVariable int roomId){

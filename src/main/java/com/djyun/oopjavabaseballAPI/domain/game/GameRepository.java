@@ -25,6 +25,16 @@ public class GameRepository {
         return game;
     }
 
+    public Game findLastGame(int roomId){
+        for ( int id : gameStore.keySet()){
+            if (id == roomId){
+                int lastIdx = gameStore.get(roomId).size()-1;
+                return gameStore.get(roomId).get(lastIdx);
+            }
+        }
+        return null; // 추후 예외처리?
+    }
+
     public List<Integer> findRealAnswerByID(int roomId){
         if (gameStore.containsKey(roomId)){
             return gameStore.get(roomId).stream()
