@@ -5,15 +5,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 @Service
-public class GameCheck {
+public class GameRepository {
     private static final Map<Integer, ArrayList<Game>> gameStore = new LinkedHashMap<>();
+
     public boolean isPossible(int roomId){
-        // 로직
+        // remainingCount <=10
+        // correct
         return true;
     }
-
-
-
 
     public ArrayList<Game> retrieveAll(int roomId){
         if(gameStore.containsKey(roomId)){

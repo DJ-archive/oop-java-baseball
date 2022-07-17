@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class UserCheck{
+public class UserRepository {
     private static Map<Integer,User> store = new HashMap<>();
     private static int userId = 0;
 
