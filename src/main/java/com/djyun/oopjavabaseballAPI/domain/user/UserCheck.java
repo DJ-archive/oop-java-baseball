@@ -17,15 +17,8 @@ public class UserCheck{
         return user;
     }
 
-/*
-    public int isPossible(int roomId, int answer){
 
-    }
 
-    public void saveRemainingCnt(int roodId){
-
-    }
-*/
 
 
 }
