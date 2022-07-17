@@ -42,8 +42,8 @@ public class GameController {
         return null; // 추후 에러 처리
     }
 
-    @GetMapping("/game/{}/history")
-    public ArrayList<Game> retrieveHistory(int roomId){
+    @GetMapping("/game/{roomId}/history")
+    public ArrayList<Game> retrieveHistory(@PathVariable int roomId){
         return gameCheck.retrieveAll(roomId);
     }
 

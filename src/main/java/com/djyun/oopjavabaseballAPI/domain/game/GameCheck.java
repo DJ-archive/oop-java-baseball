@@ -13,11 +13,8 @@ public class GameCheck {
     }
 
 
-    /*
-    public void saveRemainingCnt(int roodId){
-    }
 
-*/
+
     public ArrayList<Game> retrieveAll(int roomId){
         if(gameStore.containsKey(roomId)){
             return gameStore.get(roomId);
