@@ -9,6 +9,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
     private int roomId;
-    private int remainingCount;
-    private int answerCount;
 }
