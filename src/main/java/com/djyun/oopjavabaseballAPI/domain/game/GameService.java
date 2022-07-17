@@ -20,19 +20,22 @@ public class GameService {
         return true;
     }
 
+    public List<Integer> makeRandomNum(){
+        Random random = new Random();
+        List<Integer> randomNumLi = new ArrayList<>();
+
+        while(randomNumLi.size()<3){
+            int randomInt = random.nextInt(9)+1;
+            if (!randomNumLi.contains(randomInt)) {
+                randomNumLi.add(randomInt);
+            }
+        }
+        return randomNumLi;
+    }
     public List<Integer> getRealAnswer(int roomId){
         List<Integer> realAnswerByID = gameRepository.findRealAnswerByID(roomId);
         if (realAnswerByID ==null){
-            Random random = new Random();
-            List<Integer> realAnswer = new ArrayList<>();
-
-            while(realAnswer.size()<3){
-                int randomInt = random.nextInt(9)+1;
-                if (!realAnswer.contains(randomInt)) {
-                    realAnswer.add(randomInt);
-                }
-            }
-            return realAnswer;
+            return makeRandomNum();
         }
         return realAnswerByID;
     }
