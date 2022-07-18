@@ -62,8 +62,8 @@ public class ApiController {
 
     @GetMapping("/game/{roomId}")
     public ResponseEntity askResult(@PathVariable int roomId){
-        Game lastResult = gameStore.findLastGame(roomId);
-        return new ResponseEntity(lastResult, HttpStatus.OK);
+        User findingPlayerInfo = userStore.findUserById(roomId);
+        return new ResponseEntity(findingPlayerInfo, HttpStatus.OK);
     }
 
     @GetMapping("/game/{roomId}/history")

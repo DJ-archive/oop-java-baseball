@@ -19,16 +19,4 @@ public class GameRepository {
         return new ArrayList<>(gameStore.get(roomId));
     }
 
-
-    public Game findLastGame(int roomId){
-        for ( int id : gameStore.keySet()){
-            if (id == roomId){
-                int lastIdx = gameStore.get(roomId).size()-1;
-                return gameStore.get(roomId).get(lastIdx);
-            }
-        }
-        return new Game(); // 추후 예외처리?
-    }
-
-
 }
