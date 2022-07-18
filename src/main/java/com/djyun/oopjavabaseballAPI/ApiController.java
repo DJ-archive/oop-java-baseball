@@ -41,7 +41,7 @@ public class ApiController {
      */
     @PostMapping("/game/{roomId}/{answer}")
     public ResponseEntity playGame(@PathVariable int roomId, @PathVariable Integer answer){
-        if (validationUtils.checkValidation(answer)){
+        if (validationUtils.checkNumValid(answer) && validationUtils.checkTryNum(roomId)){
             log.info("check validation = {}", true);
 
             List<Integer> realAnswer = numberGenerator.createRandomNum();

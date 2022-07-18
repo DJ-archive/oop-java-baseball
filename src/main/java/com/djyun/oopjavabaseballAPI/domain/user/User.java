@@ -6,13 +6,15 @@ import lombok.NoArgsConstructor;
 
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class User {
     private int roomId;
     private int remainingCount = 10;
     private int answerCount = 0;
 
+    public User(int roomId) {
+        this.roomId = roomId;
+    }
 }
 
 

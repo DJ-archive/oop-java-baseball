@@ -1,5 +1,7 @@
 package com.djyun.oopjavabaseballAPI.domain.game;
 
+import com.djyun.oopjavabaseballAPI.domain.user.User;
+import com.djyun.oopjavabaseballAPI.domain.user.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,15 +52,15 @@ class ValidationUtilsTest {
     }
 
     @Test
-    void 전체_검증(){
-        boolean result1 = validationUtils.checkValidation(123); // t
-        boolean result2 = validationUtils.checkValidation(919); // f
-        boolean result3 = validationUtils.checkValidation(1193); // f
-        boolean result4 = validationUtils.checkValidation(119); // f
-        boolean result5 = validationUtils.checkValidation(011); // f
-        boolean result6 = validationUtils.checkValidation(245); // t
-        boolean result7 = validationUtils.checkValidation(null); // f
-        boolean result8 = validationUtils.checkValidation(1234); // f
+    void 입력값_검증(){
+        boolean result1 = validationUtils.checkNumValid(123); // t
+        boolean result2 = validationUtils.checkNumValid(919); // f
+        boolean result3 = validationUtils.checkNumValid(1193); // f
+        boolean result4 = validationUtils.checkNumValid(119); // f
+        boolean result5 = validationUtils.checkNumValid(011); // f
+        boolean result6 = validationUtils.checkNumValid(245); // t
+        boolean result7 = validationUtils.checkNumValid(null); // f
+        boolean result8 = validationUtils.checkNumValid(1234); // f
 
         Assertions.assertThat(result1).isTrue();
         Assertions.assertThat(result2).isFalse();

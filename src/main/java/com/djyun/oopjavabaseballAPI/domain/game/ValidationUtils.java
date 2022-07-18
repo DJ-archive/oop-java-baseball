@@ -1,5 +1,8 @@
 package com.djyun.oopjavabaseballAPI.domain.game;
 
+import com.djyun.oopjavabaseballAPI.domain.user.UserRepository;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +10,9 @@ import java.util.List;
 @Component
 public class ValidationUtils {
 
-    /**
-     * TODO 게임 횟수 검증
-     */
+    private UserRepository userStore;
 
-    public boolean checkValidation(Integer answer){
+    public boolean checkNumValid(Integer answer){
         List<Integer> userAnswer = convertIntList(answer);
         boolean checkRange = checkRange(userAnswer);
         boolean unDuplicated = unDuplicated(userAnswer);
@@ -20,6 +21,20 @@ public class ValidationUtils {
             return false;
         }
         return true;
+    }
+
+    public boolean checkTryNum(int roomId){
+        if (hasUser(roomId) && userStore.findUserById(roomId).getRemainingCount()>0){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean hasUser(int roomId) {
+        if (userStore.findUserById(roomId)!=null){
+            return true;
+        }
+        return false;
     }
 
     public List<Integer> convertIntList(Integer answer){

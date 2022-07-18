@@ -10,8 +10,7 @@ public class UserRepository {
     private static int userId = 0;
 
     public User save(){
-        User user = new User();
-        user.setRoomId(++userId);
+        User user = new User(++userId);
         userStore.put(user.getRoomId(), user);
         return user;
     }
