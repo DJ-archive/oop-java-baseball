@@ -1,5 +1,6 @@
 package com.djyun.oopjavabaseballAPI.domain.game;
 
+import com.djyun.oopjavabaseballAPI.domain.game.baseball.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,19 @@ public class Game {
     private int strike;
     private int ball;
     private int out;
+
     @JsonIgnore
     private List<Integer> realAnswer; //
 
+    public void report(Status gameStatus) {
+        if (gameStatus == Status.STRIKE){
+            ++ this.strike;
+        }
+        if (gameStatus == Status.BALL){
+            ++ this.ball;
+        }
+        if (gameStatus == Status.OUT){
+            ++ this.out;
+        }
+    }
 }
