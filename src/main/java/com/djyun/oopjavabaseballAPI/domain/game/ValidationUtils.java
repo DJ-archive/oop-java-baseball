@@ -1,8 +1,23 @@
 package com.djyun.oopjavabaseballAPI.domain.game;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class ValidationUtils {
+    /**
+     * TODO 게임 횟수 검증
+     */
+    public boolean checkValidation(List<Integer> userAnswer){
+        boolean checkRange = checkRange(userAnswer);
+        boolean unDuplicated = unDuplicated(userAnswer);
+        boolean countDigits = countDigits(userAnswer);
+        if (!(checkRange && unDuplicated && countDigits)){
+            return false;
+        }
+        return true;
+    }
     public boolean checkRange(List<Integer> userAnswer){
         for (int i = 0; i < userAnswer.size(); i++) {
             if (1>userAnswer.get(i) || userAnswer.get(i)>9){

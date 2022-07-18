@@ -1,9 +1,11 @@
 package com.djyun.oopjavabaseballAPI.domain.game;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+@Component
 public class NumberGenerator {
     public List<Integer> createRandomNum(){
         Random random = new Random();
@@ -17,4 +19,16 @@ public class NumberGenerator {
         }
         return randomNumLi;
     }
+
+    public List<Integer> convertIntList(String userAnswer){
+        if (userAnswer != null){
+            List<Integer> userAnswerLi = new ArrayList<>();
+            for (String num : userAnswer.split("")){
+                userAnswerLi.add(Integer.valueOf(num));
+            }
+            return userAnswerLi;
+        }
+        return new ArrayList<>();
+    }
+
 }

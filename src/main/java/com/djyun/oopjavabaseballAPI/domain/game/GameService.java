@@ -32,13 +32,9 @@ public class GameService {
 
 
     // remainingCount 줄이고 answerCount 늘리기
-    public Game runGame(int roomId, int answer, List<Integer> realAnswer){
+    public Game runGame(int roomId, List<Integer> userAnswer, List<Integer> realAnswer){
         gameRepository.makeNewGame(roomId, realAnswer);
-        List<Integer> answerList = new ArrayList<>();
-        for (Character numChar : Integer.toString(answer).toCharArray()){
-            answerList.add(numChar - '0');
-        }
-        //
+
         Game game = new Game();
         game.setRealAnswer(realAnswer);
         game.setBall(1);

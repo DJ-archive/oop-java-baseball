@@ -1,8 +1,6 @@
 package com.djyun.oopjavabaseballAPI;
 
-import com.djyun.oopjavabaseballAPI.domain.game.Game;
-import com.djyun.oopjavabaseballAPI.domain.game.GameService;
-import com.djyun.oopjavabaseballAPI.domain.game.GameRepository;
+import com.djyun.oopjavabaseballAPI.domain.game.*;
 import com.djyun.oopjavabaseballAPI.domain.user.User;
 import com.djyun.oopjavabaseballAPI.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,9 @@ public class ApiController {
     private UserRepository userRepository;
     private GameRepository gameRepository;
     private GameService gameService;
+    private ValidationUtils validationUtils;
+    private NumberGenerator numberGenerator;
+
     @PostMapping("/game/start")
     public ResponseEntity createUserId(){
         User savedUser = userRepository.save();
@@ -30,14 +31,12 @@ public class ApiController {
     }
 
     @PostMapping("/game/{roomId}/{answer}")
-    public ResponseEntity gameStart(@PathVariable int roomId, Integer answer){
-        // 1. 게임 진행 여부 결정 (10 이하)
-        boolean possible = gameService.isPossible(roomId);
+    public ResponseEntity gameStart(@PathVariable int roomId, String answer){
+        List<Integer> userAnswer = numberGenerator.convertIntList(answer);
 
-        // 2. 게임 진행
-        if (possible){
+        if (validationUtils.checkValidation(userAnswer)){
             List<Integer> realAnswer = gameService.getRealAnswer(roomId);
-            Game gameResult = gameService.runGame(roomId, answer, realAnswer);
+            Game gameResult = gameService.runGame(roomId, userAnswer, realAnswer);
             return new ResponseEntity(gameResult, HttpStatus.CREATED);
         }
         return new ResponseEntity<>("CLOSED_GAME", HttpStatus.BAD_REQUEST); // 추후 에러 처리
