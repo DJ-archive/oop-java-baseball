@@ -12,10 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 public class Game {
     private boolean correct;
-    private int remainingCount;
     private int strike;
     private int ball;
     private int out;
     @JsonIgnore
-    private List<Integer> realAnswer;
+    private List<Integer> realAnswer; //
+
 }

@@ -20,6 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class ApiController {
+
+
     private final UserRepository userRepository;
     private final GameRepository gameRepository;
     private final GameService gameService;
@@ -30,7 +32,7 @@ public class ApiController {
     @PostMapping("/game/start")
     public ResponseEntity startGame(){
         User savedUser = userRepository.save();
-        return new ResponseEntity(savedUser, HttpStatus.CREATED);
+        return new ResponseEntity(savedUser.getRoomId(), HttpStatus.CREATED);
     }
 
 
@@ -40,7 +42,7 @@ public class ApiController {
         log.info("user answer = {}", userAnswer);
         if (validationUtils.checkValidation(userAnswer)){
             log.info("check validation = {}", true);
-            List<Integer> realAnswer = gameService.getRealAnswer(roomId);
+            List<Integer> realAnswer = numberGenerator.createRandomNum();
             Game gameResult = gameService.runGame(roomId, userAnswer, realAnswer);
             return new ResponseEntity(gameResult, HttpStatus.CREATED);
         }
