@@ -13,6 +13,7 @@ import java.util.Random;
 public class GameService {
 
     private final GameRepository gameRepository;
+    private NumberGenerator numberGenerator;
     private List<Integer> realAnswer;
 
     public boolean isPossible(int roomId){
@@ -20,22 +21,11 @@ public class GameService {
         return true;
     }
 
-    public List<Integer> makeRandomNum(){
-        Random random = new Random();
-        List<Integer> randomNumLi = new ArrayList<>();
 
-        while(randomNumLi.size()<3){
-            int randomInt = random.nextInt(9)+1;
-            if (!randomNumLi.contains(randomInt)) {
-                randomNumLi.add(randomInt);
-            }
-        }
-        return randomNumLi;
-    }
     public List<Integer> getRealAnswer(int roomId){
         List<Integer> realAnswerByID = gameRepository.findRealAnswerByID(roomId);
         if (realAnswerByID.isEmpty()){
-            return makeRandomNum();
+            return numberGenerator.createRandomNum();
         }
         return realAnswerByID;
     }
