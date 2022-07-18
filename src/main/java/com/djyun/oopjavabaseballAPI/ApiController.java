@@ -3,6 +3,8 @@ package com.djyun.oopjavabaseballAPI;
 import com.djyun.oopjavabaseballAPI.domain.game.*;
 import com.djyun.oopjavabaseballAPI.domain.user.User;
 import com.djyun.oopjavabaseballAPI.domain.user.UserRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
+@Slf4j
 public class ApiController {
+    private final UserRepository userRepository;
+    private final GameRepository gameRepository;
+    private final GameService gameService;
+    private final ValidationUtils validationUtils;
+    private final NumberGenerator numberGenerator;
 
-    @Autowired
-    private UserRepository userRepository;
-    private GameRepository gameRepository;
-    private GameService gameService;
-    private ValidationUtils validationUtils;
-    private NumberGenerator numberGenerator;
 
     @PostMapping("/game/start")
     public ResponseEntity startGame(){
@@ -30,16 +33,22 @@ public class ApiController {
         return new ResponseEntity(savedUser, HttpStatus.CREATED);
     }
 
-    @PostMapping("/game/{roomId}/{answer}")
-    public ResponseEntity playGame(@PathVariable int roomId, String answer){
-        List<Integer> userAnswer = numberGenerator.convertIntList(answer);
 
+    @PostMapping("/game/{roomId}/{answer}")
+    public ResponseEntity playGame(@PathVariable int roomId, @PathVariable(required = false) String answer){
+        List<Integer> userAnswer = numberGenerator.convertIntList(answer);
+        log.info("user answer = {}", userAnswer);
         if (validationUtils.checkValidation(userAnswer)){
+            log.info("check validation = {}", true);
             List<Integer> realAnswer = gameService.getRealAnswer(roomId);
             Game gameResult = gameService.runGame(roomId, userAnswer, realAnswer);
             return new ResponseEntity(gameResult, HttpStatus.CREATED);
         }
-        return new ResponseEntity<>("CLOSED_GAME", HttpStatus.BAD_REQUEST); // 추후 에러 처리
+        log.info("check validation = {}", false);
+        /**
+         * TODO validation 경우의 수에 따른 에러처리
+         */
+        return new ResponseEntity<>("CLOSED_GAME", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("GET /game/{roomId}")

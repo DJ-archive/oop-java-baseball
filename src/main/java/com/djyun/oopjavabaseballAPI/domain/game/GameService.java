@@ -16,11 +16,6 @@ public class GameService {
     private NumberGenerator numberGenerator;
     private List<Integer> realAnswer;
 
-    public boolean isPossible(int roomId){
-        // remainingCount <=10
-        return true;
-    }
-
 
     public List<Integer> getRealAnswer(int roomId){
         List<Integer> realAnswerByID = gameRepository.findRealAnswerByID(roomId);
@@ -30,8 +25,6 @@ public class GameService {
         return realAnswerByID;
     }
 
-
-    // remainingCount 줄이고 answerCount 늘리기
     public Game runGame(int roomId, List<Integer> userAnswer, List<Integer> realAnswer){
         gameRepository.makeNewGame(roomId, realAnswer);
 
