@@ -12,8 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
     private int roomId;
-    private int remainingCount;
-    private int answerCount;
-    @JsonIgnore
-    private List<Integer> realAnswer; //
+    private int remainingCount = 10;
+    private int answerCount = 0;
+
 }
+
+

@@ -20,15 +20,4 @@ public class NumberGenerator {
         return randomNumLi;
     }
 
-    public List<Integer> convertIntList(String userAnswer){
-        if (userAnswer != null){
-            List<Integer> userAnswerLi = new ArrayList<>();
-            for (String num : userAnswer.split("")){
-                userAnswerLi.add(Integer.valueOf(num));
-            }
-            return userAnswerLi;
-        }
-        return new ArrayList<>();
-    }
-
 }

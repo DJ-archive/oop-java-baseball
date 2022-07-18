@@ -1,15 +1,17 @@
 package com.djyun.oopjavabaseballAPI.domain.game.baseball;
 
-import com.djyun.oopjavabaseballAPI.domain.game.Game;
+import com.djyun.oopjavabaseballAPI.domain.game.gameresult.Game;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class Balls {
     private final List<Ball> balls;
     public Balls(List<Integer> answer) {
         this.balls = mapBall(answer);
     }
+
     public List<Ball> mapBall(List<Integer> answer) {
         List<Ball> balls = new ArrayList<>();
         for (int i = 0; i < 3; i++) {

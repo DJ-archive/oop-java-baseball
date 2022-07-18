@@ -1,13 +1,13 @@
 package com.djyun.oopjavabaseballAPI.domain.game.baseball;
 
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+@Component
+@AllArgsConstructor
 public class Ball {
-    private final int position;
-    private final int number;
+    private int position;
+    private int number;
 
-    public Ball(int position, int number) {
-        this.position = position;
-        this.number = number;
-    }
     public Status compare(Ball userBall) {
         if (this.number == userBall.number){
             if (this.position == userBall.position){

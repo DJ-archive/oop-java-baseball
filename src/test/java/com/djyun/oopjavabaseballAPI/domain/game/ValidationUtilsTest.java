@@ -51,14 +51,14 @@ class ValidationUtilsTest {
 
     @Test
     void 전체_검증(){
-        boolean result1 = validationUtils.checkValidation(Arrays.asList(1,2,3)); // t
-        boolean result2 = validationUtils.checkValidation(Arrays.asList(9,1,9)); // f
-        boolean result3 = validationUtils.checkValidation(Arrays.asList(1,1,9,3)); // f
-        boolean result4 = validationUtils.checkValidation(Arrays.asList(1,1,9)); // f
-        boolean result5 = validationUtils.checkValidation(Arrays.asList(0,1,1)); // f
-        boolean result6 = validationUtils.checkValidation(Arrays.asList(2,4,5)); // t
-        boolean result7 = validationUtils.checkValidation(new ArrayList<>()); // f
-        boolean result8 = validationUtils.checkValidation(Arrays.asList(1, 2, 3, 4)); // f
+        boolean result1 = validationUtils.checkValidation("123"); // t
+        boolean result2 = validationUtils.checkValidation("919"); // f
+        boolean result3 = validationUtils.checkValidation("1193"); // f
+        boolean result4 = validationUtils.checkValidation("119"); // f
+        boolean result5 = validationUtils.checkValidation("011"); // f
+        boolean result6 = validationUtils.checkValidation("245"); // t
+        boolean result7 = validationUtils.checkValidation(null); // f
+        boolean result8 = validationUtils.checkValidation("1234"); // f
 
         Assertions.assertThat(result1).isTrue();
         Assertions.assertThat(result2).isFalse();

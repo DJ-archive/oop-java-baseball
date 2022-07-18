@@ -1,12 +1,10 @@
 package com.djyun.oopjavabaseballAPI.domain.game.baseball;
 
-import com.djyun.oopjavabaseballAPI.domain.game.Game;
+import com.djyun.oopjavabaseballAPI.domain.game.gameresult.Game;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class BallsTest {
 

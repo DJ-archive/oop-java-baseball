@@ -2,6 +2,7 @@ package com.djyun.oopjavabaseballAPI.domain.game;
 
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -9,7 +10,9 @@ public class ValidationUtils {
     /**
      * TODO 게임 횟수 검증
      */
-    public boolean checkValidation(List<Integer> userAnswer){
+
+    public boolean checkValidation(String answer){
+        List<Integer> userAnswer = convertIntList(answer);
         boolean checkRange = checkRange(userAnswer);
         boolean unDuplicated = unDuplicated(userAnswer);
         boolean countDigits = countDigits(userAnswer);
@@ -18,6 +21,18 @@ public class ValidationUtils {
         }
         return true;
     }
+
+    public List<Integer> convertIntList(String userAnswer){
+        if (userAnswer != null){
+            List<Integer> userAnswerLi = new ArrayList<>();
+            for (String num : userAnswer.split("")){
+                userAnswerLi.add(Integer.valueOf(num));
+            }
+            return userAnswerLi;
+        }
+        return new ArrayList<>();
+    }
+
     public boolean checkRange(List<Integer> userAnswer){
         for (int i = 0; i < userAnswer.size(); i++) {
             if (1>userAnswer.get(i) || userAnswer.get(i)>9){
