@@ -11,10 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +21,8 @@ import java.util.List;
 @Slf4j
 public class ApiController {
 
-    private final UserRepository userRepository;
-    private final GameRepository gameRepository;
+    private final UserRepository userStore;
+    private final GameRepository gameStore;
 
     private final GameService gameService;
     private final ValidationUtils validationUtils;
@@ -33,7 +31,7 @@ public class ApiController {
 
     @PostMapping("/game/start")
     public ResponseEntity startGame(){
-        User savedUser = userRepository.save();
+        User savedUser = userStore.save();
         return new ResponseEntity(savedUser.getRoomId(), HttpStatus.CREATED);
     }
 
@@ -42,7 +40,7 @@ public class ApiController {
      * @roomId 같은 유저일 경우, realAnswer는 한번만 생성하여 가져와야 함!
      */
     @PostMapping("/game/{roomId}/{answer}")
-    public ResponseEntity playGame(@PathVariable int roomId, @PathVariable(required = false) String answer){
+    public ResponseEntity playGame(@PathVariable int roomId, @PathVariable Integer answer){
         if (validationUtils.checkValidation(answer)){
             log.info("check validation = {}", true);
 
@@ -54,8 +52,7 @@ public class ApiController {
             Balls newBaseballGame = new Balls(realAnswer);
             Game gameResult = newBaseballGame.compare(userAnswer);
 
-
-            gameService.endGame(roomId);
+            gameService.endGame(roomId, gameResult);
 
             return new ResponseEntity(gameResult, HttpStatus.CREATED);
         }
@@ -63,15 +60,15 @@ public class ApiController {
         return new ResponseEntity<>("CLOSED_GAME", HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("GET /game/{roomId}")
+    @GetMapping("/game/{roomId}")
     public ResponseEntity askResult(@PathVariable int roomId){
-        Game lastResult = gameRepository.findLastGame(roomId);
+        Game lastResult = gameStore.findLastGame(roomId);
         return new ResponseEntity(lastResult, HttpStatus.OK);
     }
 
     @GetMapping("/game/{roomId}/history")
     public ResponseEntity askHistory(@PathVariable int roomId){
-        ArrayList<Game> gameHistory = gameRepository.retrieveAll(roomId);
+        ArrayList<Game> gameHistory = gameStore.retrieveAll(roomId);
         return new ResponseEntity<>(gameHistory, HttpStatus.OK);
     }
 }

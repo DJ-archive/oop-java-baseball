@@ -11,7 +11,7 @@ public class ValidationUtils {
      * TODO 게임 횟수 검증
      */
 
-    public boolean checkValidation(String answer){
+    public boolean checkValidation(Integer answer){
         List<Integer> userAnswer = convertIntList(answer);
         boolean checkRange = checkRange(userAnswer);
         boolean unDuplicated = unDuplicated(userAnswer);
@@ -22,9 +22,10 @@ public class ValidationUtils {
         return true;
     }
 
-    public List<Integer> convertIntList(String userAnswer){
-        if (userAnswer != null){
+    public List<Integer> convertIntList(Integer answer){
+        if (answer != null){
             List<Integer> userAnswerLi = new ArrayList<>();
+            String userAnswer = Integer.toString(answer);
             for (String num : userAnswer.split("")){
                 userAnswerLi.add(Integer.valueOf(num));
             }

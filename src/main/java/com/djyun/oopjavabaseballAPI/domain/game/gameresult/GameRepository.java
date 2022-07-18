@@ -9,11 +9,14 @@ import java.util.*;
 public class GameRepository {
     private static final  Map<Integer, ArrayList<Game>> gameStore = new LinkedHashMap<>();
 
+    public void saveGameById(int roomId, Game gameResult){
+        ArrayList<Game> passedGames = gameStore.getOrDefault(roomId, new ArrayList<Game>());
+        passedGames.add(gameResult);
+        gameStore.put(roomId, passedGames);
+    }
+
     public ArrayList<Game> retrieveAll(int roomId){
-        if(gameStore.containsKey(roomId)){
-            return gameStore.get(roomId);
-        }
-        return null; // 결과가 없는 경우 (추후 예외처리)
+        return new ArrayList<>(gameStore.get(roomId));
     }
 
 

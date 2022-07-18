@@ -15,10 +15,12 @@ import java.util.List;
 public class GameService {
     private final Game game;
     private final UserRepository userStore;
+    private final GameRepository gameStore;
 
-    public void endGame(int roomId){
+    public void endGame(int roomId, Game gameResult){
         isCorrect();
         updatePlayerInfo(roomId);
+        gameStore.saveGameById(roomId, gameResult);
     }
 
     public void updatePlayerInfo(int roomId) {
