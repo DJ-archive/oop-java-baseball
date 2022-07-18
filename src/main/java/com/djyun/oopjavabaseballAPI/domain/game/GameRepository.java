@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 @Repository
 public class GameRepository {
-    private static final Map<Integer, ArrayList<Game>> gameStore = new LinkedHashMap<>();
+    private static final  Map<Integer, ArrayList<Game>> gameStore = new LinkedHashMap<>();
 
     public ArrayList<Game> retrieveAll(int roomId){
         if(gameStore.containsKey(roomId)){
@@ -32,7 +32,7 @@ public class GameRepository {
                 return gameStore.get(roomId).get(lastIdx);
             }
         }
-        return null; // 추후 예외처리?
+        return new Game(); // 추후 예외처리?
     }
 
     public List<Integer> findRealAnswerByID(int roomId){
@@ -41,7 +41,7 @@ public class GameRepository {
                     .findFirst()
                     .get().getRealAnswer();
         }else {
-            return null;
+            return new ArrayList<Integer>();
         }
     }
 

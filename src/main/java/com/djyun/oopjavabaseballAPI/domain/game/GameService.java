@@ -34,7 +34,7 @@ public class GameService {
     }
     public List<Integer> getRealAnswer(int roomId){
         List<Integer> realAnswerByID = gameRepository.findRealAnswerByID(roomId);
-        if (realAnswerByID ==null){
+        if (realAnswerByID.isEmpty()){
             return makeRandomNum();
         }
         return realAnswerByID;
@@ -42,14 +42,19 @@ public class GameService {
 
 
     // remainingCount 줄이고 answerCount 늘리기
-    public Game gameRun(int roomId, int answer, List<Integer> realAnswer){
+    public Game runGame(int roomId, int answer, List<Integer> realAnswer){
         gameRepository.makeNewGame(roomId, realAnswer);
         List<Integer> answerList = new ArrayList<>();
         for (Character numChar : Integer.toString(answer).toCharArray()){
             answerList.add(numChar - '0');
         }
+        //
+        Game game = new Game();
+        game.setRealAnswer(realAnswer);
+        game.setBall(1);
+        game.setStrike(1);
+        //
 
-
-        return null;
+        return game;
     }
 }
