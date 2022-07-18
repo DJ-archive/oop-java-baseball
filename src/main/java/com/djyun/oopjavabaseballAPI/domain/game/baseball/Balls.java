@@ -1,10 +1,14 @@
 package com.djyun.oopjavabaseballAPI.domain.game.baseball;
 
 import com.djyun.oopjavabaseballAPI.domain.game.gameresult.Game;
+import com.djyun.oopjavabaseballAPI.domain.game.gameresult.GameService;
+
 import java.util.ArrayList;
 import java.util.List;
+
 public class Balls {
     private final List<Ball> balls;
+    private GameService gameService;
     public Balls(List<Integer> answer) {
         this.balls = mapBall(answer);
     }

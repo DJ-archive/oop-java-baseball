@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 @Repository
-@NoArgsConstructor
 public class GameRepository {
     private static final  Map<Integer, ArrayList<Game>> gameStore = new LinkedHashMap<>();
 
