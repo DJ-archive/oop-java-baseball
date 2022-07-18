@@ -25,13 +25,13 @@ public class ApiController {
     private NumberGenerator numberGenerator;
 
     @PostMapping("/game/start")
-    public ResponseEntity createUserId(){
+    public ResponseEntity startGame(){
         User savedUser = userRepository.save();
         return new ResponseEntity(savedUser, HttpStatus.CREATED);
     }
 
     @PostMapping("/game/{roomId}/{answer}")
-    public ResponseEntity gameStart(@PathVariable int roomId, String answer){
+    public ResponseEntity playGame(@PathVariable int roomId, String answer){
         List<Integer> userAnswer = numberGenerator.convertIntList(answer);
 
         if (validationUtils.checkValidation(userAnswer)){
@@ -43,13 +43,13 @@ public class ApiController {
     }
 
     @GetMapping("GET /game/{roomId}")
-    public ResponseEntity retrieveResult(@PathVariable int roomId){
+    public ResponseEntity askResult(@PathVariable int roomId){
         Game lastResult = gameRepository.findLastGame(roomId);
         return new ResponseEntity(lastResult, HttpStatus.OK);
     }
 
     @GetMapping("/game/{roomId}/history")
-    public ResponseEntity retrieveHistory(@PathVariable int roomId){
+    public ResponseEntity askHistory(@PathVariable int roomId){
         ArrayList<Game> gameHistory = gameRepository.retrieveAll(roomId);
         return new ResponseEntity<>(gameHistory, HttpStatus.OK);
     }
