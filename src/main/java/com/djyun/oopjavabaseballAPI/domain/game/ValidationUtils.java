@@ -1,12 +1,12 @@
 package com.djyun.oopjavabaseballAPI.domain.game;
 
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ValidationUtils {
+
     /**
      * TODO 게임 횟수 검증
      */

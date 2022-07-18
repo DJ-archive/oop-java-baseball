@@ -4,14 +4,14 @@ import com.djyun.oopjavabaseballAPI.domain.game.baseball.Status;
 import com.djyun.oopjavabaseballAPI.domain.user.User;
 import com.djyun.oopjavabaseballAPI.domain.user.UserRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
-import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Game {
+    @JsonIgnore
     private final UserRepository userStore = new UserRepository();
     private boolean correct = false;
     private int strike;
