@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GameService {
-    private final Game game;
     private final UserDaoService userDaoService;
     private final GameDao gameDao;
 
@@ -39,7 +38,11 @@ public class GameService {
             userDaoService.findUserById(roomId).setCorrect(true);
         }
     }
-
+    public void updateGameResult(int roomId, List<Integer> realAnswer, List<Integer> userAnswer, Game gameResult) {
+        gameResult.setRealAnswer(realAnswer);
+        gameResult.setUserAnswer(userAnswer);
+        isCorrect(roomId, gameResult);
+    }
     public boolean endGame(int roomId, Integer answer) {
         return !validation.checkNumValid(roomId, answer) || !validation.checkRemainingCnt(roomId) || userDaoService.findUserById(roomId).isCorrect();
     }

@@ -49,14 +49,13 @@ public class ApiController {
         Balls newBaseballGame = new Balls(realAnswer);
         Game gameResult = newBaseballGame.compare(userAnswer);
 
-        gameResult.setRealAnswer(realAnswer);
-        gameResult.setUserAnswer(userAnswer);
-        gameService.isCorrect(roomId, gameResult);
+        gameService.updateGameResult(roomId, realAnswer, userAnswer, gameResult);
         gameService.storeGameResult(roomId, gameResult);
 
         return new ResponseEntity(gameResult, HttpStatus.CREATED);
 
     }
+
 
 
     @GetMapping("/game/{roomId}")
