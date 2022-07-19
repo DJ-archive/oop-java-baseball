@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class UserDao {
+public class UserDaoService {
     private static Map<Integer,User> userRepository = new HashMap<>();
     private static int userId = 0;
 

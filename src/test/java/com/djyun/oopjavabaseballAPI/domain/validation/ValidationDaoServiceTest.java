@@ -1,6 +1,6 @@
 package com.djyun.oopjavabaseballAPI.domain.validation;
 
-import com.djyun.oopjavabaseballAPI.domain.user.UserDao;
+import com.djyun.oopjavabaseballAPI.domain.user.UserDaoService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,11 +13,11 @@ class ValidationDaoServiceTest {
 
     @Autowired
     private Validation validation;
-    private UserDao userDao;
+    private UserDaoService UserDaoService;
 
     @BeforeEach
     void init(){
-        validation = new Validation(userDao);
+        validation = new Validation(UserDaoService);
     }
 
     @Test

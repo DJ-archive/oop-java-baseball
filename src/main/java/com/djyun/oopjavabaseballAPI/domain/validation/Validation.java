@@ -1,6 +1,6 @@
 package com.djyun.oopjavabaseballAPI.domain.validation;
 
-import com.djyun.oopjavabaseballAPI.domain.user.UserDao;
+import com.djyun.oopjavabaseballAPI.domain.user.UserDaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class Validation {
-    private final UserDao userDao;
+    private final UserDaoService UserDaoService;
 
     public boolean checkNumValid(Integer answer){
         List<Integer> userAnswer = convertIntList(answer);
@@ -35,7 +35,7 @@ public class Validation {
     }
 
     public boolean checkRemainingCnt(int roomId) {
-        if ((userDao.findUserById(roomId).getRemainingCount()>=1)){
+        if ((UserDaoService.findUserById(roomId).getRemainingCount()>=1)){
             return true;
         } else {
             return false;

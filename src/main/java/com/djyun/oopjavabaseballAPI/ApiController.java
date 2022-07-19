@@ -5,7 +5,8 @@ import com.djyun.oopjavabaseballAPI.domain.game.gameresult.Game;
 import com.djyun.oopjavabaseballAPI.domain.game.gameresult.GameDao;
 import com.djyun.oopjavabaseballAPI.domain.game.gameresult.GameService;
 import com.djyun.oopjavabaseballAPI.domain.user.User;
-import com.djyun.oopjavabaseballAPI.domain.user.UserDao;
+import com.djyun.oopjavabaseballAPI.domain.user.UserDaoService;
+import com.djyun.oopjavabaseballAPI.domain.user.UserDaoService;
 import com.djyun.oopjavabaseballAPI.domain.validation.Validation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApiController {
 
-    private final UserDao userDao;
+    private final UserDaoService userDaoService;
     private final GameDao gameDao;
     private final GameService gameService;
     private final Validation validation;
@@ -29,7 +30,7 @@ public class ApiController {
 
     @PostMapping("/game/start")
     public ResponseEntity startGame(){
-        User savedUser = userDao.save();
+        User savedUser = userDaoService.save();
         return new ResponseEntity(savedUser.getRoomId(), HttpStatus.CREATED);
     }
 
@@ -38,7 +39,7 @@ public class ApiController {
         if (gameService.endGame(roomId, answer)){
             return new ResponseEntity<>("CLOSED_GAME", HttpStatus.BAD_REQUEST);
         }
-        log.info("remaining count ={}", userDao.findUserById(roomId).getRemainingCount());
+        log.info("remaining count ={}", userDaoService.findUserById(roomId).getRemainingCount());
 
         List<Integer> realAnswer = gameService.getRealAnswer(roomId);
         List<Integer> userAnswer = validation.convertIntList(answer);
@@ -60,7 +61,7 @@ public class ApiController {
 
     @GetMapping("/game/{roomId}")
     public ResponseEntity askResult(@PathVariable int roomId){
-        User findingPlayerInfo = userDao.findUserById(roomId);
+        User findingPlayerInfo = userDaoService.findUserById(roomId);
         return new ResponseEntity(findingPlayerInfo, HttpStatus.OK);
     }
 
