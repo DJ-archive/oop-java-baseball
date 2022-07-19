@@ -1,7 +1,6 @@
 package com.djyun.oopjavabaseballAPI.domain.game.gameresult;
 
 
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -16,13 +15,16 @@ public class GameRepository {
     }
 
     public List<Integer> findRealAnswerById(int roomId){
-        ArrayList<Game> games = gameStore.get(roomId);
-        return games.stream()
-                .map(game -> game.getRealAnswer())
-                .filter(realAnswer -> realAnswer != null)
-                .findFirst()
-                .orElseGet(null);
-
+        try {
+            ArrayList<Game> games = gameStore.get(roomId);
+            return games.stream()
+                    .map(game -> game.getRealAnswer())
+                    .filter(realAnswer -> realAnswer != null)
+                    .findFirst()
+                    .orElseGet(null);
+        }catch (NullPointerException e){
+            return null;
+        }
     }
 
     public ArrayList<Game> retrieveAll(int roomId){

@@ -19,7 +19,7 @@ public class GameService {
     private final NumberGenerator numberGenerator;
 
     public void endGame(int roomId, Game gameResult){
-        isCorrect();
+        isCorrect(gameResult);
         updatePlayerInfo(roomId);
         gameStore.saveGameById(roomId, gameResult);
     }
@@ -30,11 +30,12 @@ public class GameService {
         int currentAnswerCnt = player.getAnswerCount() + 1;
         player.setRemainingCount(currentRemainingCnt-1);
         player.setAnswerCount(currentAnswerCnt);
+        userStore.updateUser(roomId, player);
     }
 
-    public void isCorrect() {
-        if (game.getStrike() == 3 && game.getBall() == 0 && game.getOut() == 0){
-            game.setCorrect(true);
+    public void isCorrect(Game gameResult) {
+        if (gameResult.getStrike() == 3 && gameResult.getBall() == 0 && gameResult.getOut() == 0){
+            gameResult.setCorrect(true);
         }
     }
 

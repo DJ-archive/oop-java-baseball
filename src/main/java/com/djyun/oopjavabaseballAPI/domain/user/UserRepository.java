@@ -19,4 +19,8 @@ public class UserRepository {
         return userStore.get(roomId);
     }
 
+    public void updateUser(int roomId, User user){
+        userStore.put(roomId, user);
+    }
+
 }

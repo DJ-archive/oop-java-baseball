@@ -41,12 +41,16 @@ public class ApiController {
      */
     @PostMapping("/game/{roomId}/{answer}")
     public ResponseEntity playGame(@PathVariable int roomId, @PathVariable Integer answer){
-        if (validationUtils.checkNumValid(answer) && validationUtils.checkTryNum(roomId)){
+        if (userStore.findUserById(roomId).getRemainingCount()<=0){
+
+        }
+        if (validationUtils.checkAllValid(answer, roomId)){
             log.info("check validation = {}", true);
+            log.info("remain={}", userStore.findUserById(roomId).getRemainingCount());
 
             List<Integer> realAnswer = gameService.getRealAnswer(roomId);
             List<Integer> userAnswer = validationUtils.convertIntList(answer);
-            log.info("real computer answer={}", realAnswer); // roomId가 같을 경우, 한번만 생성 후 반환
+            log.info("real computer answer={}", realAnswer);
             log.info("current user answer={}", userAnswer);
 
             Balls newBaseballGame = new Balls(realAnswer);
