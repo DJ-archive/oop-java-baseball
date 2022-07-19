@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
     private int roomId;
+    private boolean correct = false;
     private int remainingCount = 10;
     private int answerCount = 0;
 

@@ -1,29 +1,15 @@
-package com.djyun.oopjavabaseballAPI.domain.game;
+package com.djyun.oopjavabaseballAPI.domain.validation;
 
-import com.djyun.oopjavabaseballAPI.domain.user.User;
-import com.djyun.oopjavabaseballAPI.domain.user.UserRepository;
-import lombok.NoArgsConstructor;
+import com.djyun.oopjavabaseballAPI.domain.user.UserDao;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
-@Slf4j
-@Component
-public class ValidationUtils {
+import java.util.*;
 
-    private UserRepository userStore;
-    private User player;
-
-    public boolean checkAllValid(Integer answer, int roomId){
-        boolean checkTryNum = checkTryNum(roomId);
-        boolean checkNumValid = checkNumValid(answer);
-        if (checkNumValid && checkTryNum){
-            return true;
-        }
-        return false;
-    }
+@Service
+@RequiredArgsConstructor
+public class Validation {
+    private final UserDao userDao;
 
     public boolean checkNumValid(Integer answer){
         List<Integer> userAnswer = convertIntList(answer);
@@ -36,16 +22,24 @@ public class ValidationUtils {
         return false;
     }
 
-    public boolean checkTryNum(int roomId){
-        try {
-            player = userStore.findUserById(roomId);
-            if (player.getRemainingCount()>0){
-                return true;
-            }
-        }catch (NullPointerException e){
+    public boolean checkNumValid(int roomId, Integer answer){
+        List<Integer> userAnswer = convertIntList(answer);
+        boolean checkRange = checkRange(userAnswer);
+        boolean unDuplicated = unDuplicated(userAnswer);
+        boolean countDigits = countDigits(userAnswer);
+        if (checkRange && unDuplicated && countDigits){
             return true;
+        }else {
+            return false;
         }
-        return false;
+    }
+
+    public boolean checkRemainingCnt(int roomId) {
+        if ((userDao.findUserById(roomId).getRemainingCount()>=1)){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public List<Integer> convertIntList(Integer answer){
@@ -87,4 +81,5 @@ public class ValidationUtils {
         }
         return false;
     }
+
 }

@@ -5,22 +5,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class UserRepository {
-    private static Map<Integer,User> userStore = new HashMap<>();
+public class UserDao {
+    private static Map<Integer,User> userRepository = new HashMap<>();
     private static int userId = 0;
 
     public User save(){
         User user = new User(++userId);
-        userStore.put(user.getRoomId(), user);
+        userRepository.put(user.getRoomId(), user);
         return user;
     }
     
     public User findUserById(int roomId){
-        return userStore.get(roomId);
+        return userRepository.get(roomId);
     }
 
     public void updateUser(int roomId, User user){
-        userStore.put(roomId, user);
+        userRepository.put(roomId, user);
     }
 
 }

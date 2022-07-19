@@ -1,4 +1,4 @@
-package com.djyun.oopjavabaseballAPI.domain.game;
+package com.djyun.oopjavabaseballAPI.domain.game.baseball;
 
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;

@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Balls {
     private final List<Ball> balls;
-    private GameService gameService;
     public Balls(List<Integer> answer) {
         this.balls = mapBall(answer);
     }
