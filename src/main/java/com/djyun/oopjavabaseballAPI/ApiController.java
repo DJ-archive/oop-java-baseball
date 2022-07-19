@@ -44,13 +44,15 @@ public class ApiController {
         if (validationUtils.checkNumValid(answer) && validationUtils.checkTryNum(roomId)){
             log.info("check validation = {}", true);
 
-            List<Integer> realAnswer = numberGenerator.createRandomNum();
+            List<Integer> realAnswer = gameService.getRealAnswer(roomId);
             List<Integer> userAnswer = validationUtils.convertIntList(answer);
             log.info("real computer answer={}", realAnswer); // roomId가 같을 경우, 한번만 생성 후 반환
             log.info("current user answer={}", userAnswer);
 
             Balls newBaseballGame = new Balls(realAnswer);
             Game gameResult = newBaseballGame.compare(userAnswer);
+            gameResult.setRealAnswer(realAnswer);
+            gameResult.setUserAnswer(userAnswer);
 
             gameService.endGame(roomId, gameResult);
 

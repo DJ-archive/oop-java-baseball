@@ -15,6 +15,16 @@ public class GameRepository {
         gameStore.put(roomId, passedGames);
     }
 
+    public List<Integer> findRealAnswerById(int roomId){
+        ArrayList<Game> games = gameStore.get(roomId);
+        return games.stream()
+                .map(game -> game.getRealAnswer())
+                .filter(realAnswer -> realAnswer != null)
+                .findFirst()
+                .orElseGet(null);
+
+    }
+
     public ArrayList<Game> retrieveAll(int roomId){
         return new ArrayList<>(gameStore.get(roomId));
     }

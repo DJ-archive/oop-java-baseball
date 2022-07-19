@@ -16,6 +16,7 @@ public class GameService {
     private final Game game;
     private final UserRepository userStore;
     private final GameRepository gameStore;
+    private final NumberGenerator numberGenerator;
 
     public void endGame(int roomId, Game gameResult){
         isCorrect();
@@ -35,6 +36,14 @@ public class GameService {
         if (game.getStrike() == 3 && game.getBall() == 0 && game.getOut() == 0){
             game.setCorrect(true);
         }
+    }
+
+    public List<Integer> getRealAnswer(int roomId) {
+        List<Integer> getRealAnswer = gameStore.findRealAnswerById(roomId);
+        if (getRealAnswer == null){
+            return numberGenerator.createRandomNum();
+        }
+        return getRealAnswer;
     }
 
 }

@@ -21,7 +21,7 @@ public class Balls {
         return balls;
     }
     public Game compare(List<Integer> answer){
-        Game gameResult = new Game();
+        Game gameResult = new Game();;
         Balls answerBalls = new Balls(answer);
         for (Ball ball : balls){
             Status gameStatus = answerBalls.compare(ball);

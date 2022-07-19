@@ -16,6 +16,9 @@ import java.util.List;
 @AllArgsConstructor
 @Component
 public class Game {
+    @JsonIgnore
+    private List<Integer> realAnswer;
+    private List<Integer> userAnswer;
     private boolean correct = false;
     private int strike;
     private int ball;
